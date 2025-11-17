@@ -41,8 +41,17 @@ class Product(BaseModel):
 # Add your own schemas here:
 # --------------------------------------------------
 
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+class AttendanceRecord(BaseModel):
+    """Attendance records schema
+    Collection name: "attendancerecord" (lowercase of class name)
+    """
+    name: str = Field(..., description="Employee full name")
+    email: str = Field(..., description="Employee email")
+    date: str = Field(..., description="Date in YYYY-MM-DD")
+    time: str = Field(..., description="Time in HH:MM:SS")
+    latitude: float = Field(..., description="Captured latitude")
+    longitude: float = Field(..., description="Captured longitude")
+    accuracy_m: float = Field(..., description="GPS accuracy in meters")
+    photo_url: Optional[str] = Field(None, description="URL of selfie stored in Drive or storage")
+    geofence_ok: Optional[bool] = Field(None, description="Whether point falls within configured geofence")
+    raw_photo_base64: Optional[str] = Field(None, description="Optional base64 image payload to be forwarded to Google Apps Script for Drive upload")
